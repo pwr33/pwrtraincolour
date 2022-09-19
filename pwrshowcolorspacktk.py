@@ -137,16 +137,9 @@ sock_colour = socket(AF_INET, SOCK_DGRAM)
 # I think simple solution is pack a canvas into a frame which is gridded
 # anyway pack is simple and is useful for simple layouts and a quick gui app
 butframe = Frame(win)
-startbutton=Button(butframe, text= "Start Colours", font=('Helvetica 8 bold'), command=start_colours)
-startbutton.pack(side=LEFT,padx=20)
-# that's funny one of those semantic bugs that in this context did not cause a problem
-# as I never in this prog use the pointer to the button, and indeed the assignment was redundant 
-# as tk does not need a stored pointer to exist, but should have been stopbutton not a copy paste error
-startbutton=Button(butframe, text= "Stop Colours", font=('Helvetica 8 bold'), command=stop_colours)
-startbutton.pack(side=LEFT,padx=20)
-changebutton=Button(butframe, text= "Change colour", font=('Helvetica 8 bold'), command=change_bgcol)
-changebutton.pack(side=LEFT,padx=20)
+Button(butframe, text= "Start Colours", font=('Helvetica 8 bold'), command=start_colours).pack(side=LEFT,padx=20)
+Button(butframe, text= "Stop Colours", font=('Helvetica 8 bold'), command=stop_colours).pack(side=LEFT,padx=20)
+Button(butframe, text= "Change colour", font=('Helvetica 8 bold'), command=change_bgcol).pack(side=LEFT,padx=20)
 butframe.pack(side=TOP)
-canvas= Canvas(win, bg='skyblue')
-canvas.pack(side=BOTTOM, expand=YES, fill=BOTH)
+Canvas(win, bg='skyblue').pack(side=BOTTOM, expand=YES, fill=BOTH)
 win.mainloop()
