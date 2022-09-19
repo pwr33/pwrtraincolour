@@ -72,9 +72,9 @@ x11colors = ("aliceblue","antiquewhite","antiquewhite1","antiquewhite2","antique
 
 
 # global variables keeps it simple/classless
-colour_current = -1
+colourcurrent = -1
 timerinstance = None
-trainclient = 'setyourclienthostname_or_ipaddress_here'
+trainclient = 'breakout'
 
 win= Tk()
 win.geometry("1024x768")
@@ -85,16 +85,16 @@ changetime = 10000
 
 # roll sequentially through the x11 colour list
 def tchange_background():
-  # need to declare a global if you are going to modify it  
-  global colour_current
+  # need to declare a global if you are going to modify it
+  global colourcurrent
   global timerinstance
-  colour_current += 1
-  if colour_current > len(x11colors)-1 :
-    colour_current = 0
-  rcol = x11colors[colour_current]
+  colourcurrent += 1
+  if colourcurrent > len(x11colors)-1 :
+    colourcurrent = 0
+  rcol = x11colors[colourcurrent]
   try :
     msg = msg = bytes(rcol.encode())
-    print(f'Sending message {msg} to {trainclient}') 
+    print(f'Sending message {msg} to {trainclient}')
     sock_colour.sendto(msg,(trainclient,25001))
   except :
     print("socket error")
@@ -108,39 +108,39 @@ def tchange_background():
 
 # set a random colour
 def change_bgcol():
-  global timerinstance
-  if timerinstance == None :
+  if timerinstance is None :
     rcol = R.choice(x11colors)
     canvas.configure(bg=rcol)
 
 def start_colours() :
-  global timerinstance
-  global colour_current
-  colour_current = -1
+  global colourcurrent
+  colourcurrent = -1
   tchange_background()
 
 def stop_colours() :
   global timerinstance
-  if timerinstance != None :
+  if timerinstance is not None :
     win.after_cancel(timerinstance)
     timerinstance = None
     print('Colours stopped')
   else :
     print('Colours not started')
 
-
 R.seed()
 sock_colour = socket(AF_INET, SOCK_DGRAM)
 
 # Create buttons, have to pack them into a frame first to align along top
-# didnt use grid as was getting problems auto sizing canvas with grid 
+# didnt use grid as was getting problems auto sizing canvas with grid
 # I think simple solution is pack a canvas into a frame which is gridded
 # anyway pack is simple and is useful for simple layouts and a quick gui app
 butframe = Frame(win)
-Button(butframe, text= "Start Colours", font=('Helvetica 8 bold'), command=start_colours).pack(side=LEFT,padx=20)
-Button(butframe, text= "Stop Colours", font=('Helvetica 8 bold'), command=stop_colours).pack(side=LEFT,padx=20)
-Button(butframe, text= "Change colour", font=('Helvetica 8 bold'), command=change_bgcol).pack(side=LEFT,padx=20)
+startbutton=Button(butframe, text= "Start Colours", font=('Helvetica 8 bold'), command=start_colours)
+startbutton.pack(side=LEFT,padx=20)
+stopbutton=Button(butframe, text= "Stop Colours", font=('Helvetica 8 bold'), command=stop_colours)
+stopbutton.pack(side=LEFT,padx=20)
+changebutton=Button(butframe, text= "Change colour", font=('Helvetica 8 bold'), command=change_bgcol)
+changebutton.pack(side=LEFT,padx=20)
 butframe.pack(side=TOP)
-canvas = Canvas(win, bg='skyblue')
+canvas= Canvas(win, bg='skyblue')
 canvas.pack(side=BOTTOM, expand=YES, fill=BOTH)
 win.mainloop()
