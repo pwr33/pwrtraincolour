@@ -141,5 +141,5 @@ Button(butframe, text= "Start Colours", font=('Helvetica 8 bold'), command=start
 Button(butframe, text= "Stop Colours", font=('Helvetica 8 bold'), command=stop_colours).pack(side=LEFT,padx=20)
 Button(butframe, text= "Change colour", font=('Helvetica 8 bold'), command=change_bgcol).pack(side=LEFT,padx=20)
 butframe.pack(side=TOP)
-Canvas(win, bg='skyblue').pack(side=BOTTOM, expand=YES, fill=BOTH)
+canvas = Canvas(win, bg='skyblue').pack(side=BOTTOM, expand=YES, fill=BOTH)
 win.mainloop()
