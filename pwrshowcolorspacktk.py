@@ -132,6 +132,9 @@ sock_colour = socket(AF_INET, SOCK_DGRAM)
 # Create buttons, have to pack them into a frame first to align along top
 # didnt use grid as was getting problems auto sizing canvas with grid
 # I think simple solution is pack a canvas into a frame which is gridded
+# no it turns out, I think it was the class structure I was using, seems it works ok if you
+# create the root tk window in __main__ configure it and then pass that into a GUI class rather
+# than a self instantiated app class based on tk.frame.... to do with global window config vs using getrootwindow
 # anyway pack is simple and is useful for simple layouts and a quick gui app
 butframe = Frame(win)
 startbutton=Button(butframe, text= "Start Colours", font=('Helvetica 8 bold'), command=start_colours)
